@@ -1,6 +1,27 @@
 import { Leaf } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Footer = () => {
+  const { toast } = useToast();
+
+  const scrollToSection = (href: string) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleLinkClick = (label: string, href: string) => {
+    if (href.startsWith("#")) {
+      scrollToSection(href);
+    } else {
+      toast({
+        title: label,
+        description: "This page is coming soon! We're working on it.",
+      });
+    }
+  };
+
   const links = {
     product: [
       { label: "Features", href: "#features" },
@@ -30,37 +51,56 @@ const Footer = () => {
     ],
   };
 
+  const handleSocialClick = (platform: string) => {
+    toast({
+      title: `Follow us on ${platform}`,
+      description: "Social links coming soon!",
+    });
+  };
+
   return (
     <footer className="bg-foreground text-primary-foreground">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <a href="/" className="flex items-center gap-2 mb-4">
+            <button 
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="flex items-center gap-2 mb-4"
+            >
               <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
                 <Leaf className="w-5 h-5 text-primary-foreground" />
               </div>
               <span className="font-display font-bold text-xl">
                 Weather<span className="text-primary">v0</span>
               </span>
-            </a>
+            </button>
             <p className="text-primary-foreground/70 text-sm leading-relaxed mb-6">
               Local weather, soil & crop insights for every farmer. 
               Irrigate smarter, reduce losses, improve yield.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors">
+              <button 
+                onClick={() => handleSocialClick("X/Twitter")}
+                className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
+              >
                 <span className="sr-only">Twitter</span>
                 𝕏
-              </a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors">
+              </button>
+              <button 
+                onClick={() => handleSocialClick("YouTube")}
+                className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
+              >
                 <span className="sr-only">YouTube</span>
                 ▶
-              </a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors">
+              </button>
+              <button 
+                onClick={() => handleSocialClick("LinkedIn")}
+                className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
+              >
                 <span className="sr-only">LinkedIn</span>
                 in
-              </a>
+              </button>
             </div>
           </div>
 
@@ -70,9 +110,12 @@ const Footer = () => {
             <ul className="space-y-3">
               {links.product.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm">
+                  <button 
+                    onClick={() => handleLinkClick(link.label, link.href)}
+                    className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm text-left"
+                  >
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -84,9 +127,12 @@ const Footer = () => {
             <ul className="space-y-3">
               {links.resources.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm">
+                  <button 
+                    onClick={() => handleLinkClick(link.label, link.href)}
+                    className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm text-left"
+                  >
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -98,9 +144,12 @@ const Footer = () => {
             <ul className="space-y-3">
               {links.company.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm">
+                  <button 
+                    onClick={() => handleLinkClick(link.label, link.href)}
+                    className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm text-left"
+                  >
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -112,9 +161,12 @@ const Footer = () => {
             <ul className="space-y-3">
               {links.legal.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm">
+                  <button 
+                    onClick={() => handleLinkClick(link.label, link.href)}
+                    className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm text-left"
+                  >
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
